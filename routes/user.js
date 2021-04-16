@@ -25,7 +25,7 @@ router.post("/user/signup", async (req, res) => {
           hash: hash,
           salt: salt,
         });
-        if (req.files.picture.path) {
+        if (req.files.picture) {
           const imgUploaded = await cloudinary.uploader.upload(
             req.files.picture.path,
             {
