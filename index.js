@@ -27,6 +27,15 @@ app.use(userRoutes);
 const offerRoutes = require("./routes/offer");
 app.use(offerRoutes);
 
+app.get("/", (req, res) => {
+  res
+    .status(200)
+    .json({
+      message:
+        "Bienvenue sur le serveur Heroku basé sur un code source sur GitHub.",
+    });
+});
+
 app.all("*", (req, res) => {
   res.status(404).json({ error: "Cette route n'existe pas" });
 });
