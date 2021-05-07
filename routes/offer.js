@@ -276,6 +276,7 @@ router.delete("/offer/delete", isAuthenticated, async (req, res) => {
 
 router.get("/offers", async (req, res) => {
   try {
+    let limit = Number(req.query.limit);
     let result = [];
     let filter = {};
     if (req.query.title) {
@@ -318,19 +319,19 @@ router.get("/offers", async (req, res) => {
       if (!req.query.sort) {
         result = await Offer.find(filter)
           .skip(8 * (Number(req.query.page) - 1))
-          .limit(8)
+          .limit(limit)
           .populate("owner", "account _id");
       } else if (req.query.sort === "price-asc") {
         result = await Offer.find(filter)
           .sort({ product_price: "asc" })
           .skip(8 * (Number(req.query.page) - 1))
-          .limit(8)
+          .limit(limit)
           .populate("owner", "account _id");
       } else if (req.query.sort === "price desc") {
         result = await Offer.find(filter)
           .sort({ product_price: "desc" })
           .skip(8 * (Number(req.query.page) - 1))
-          .limit(8)
+          .limit(limit)
           .populate("owner", "account _id");
       }
     }
