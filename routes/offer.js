@@ -299,38 +299,38 @@ router.get("/offers", async (req, res) => {
       if (!req.query.sort) {
         result = await Offer.find(filter)
           .skip(0)
-          .limit(3)
+          .limit(8)
           .populate("owner", "account _id");
       } else if (req.query.sort === "price-asc") {
         result = await Offer.find(filter)
           .sort({ product_price: "asc" })
           .skip(0)
-          .limit(3)
+          .limit(8)
           .populate("owner", "account _id");
       } else if (req.query.sort === "price-desc") {
         result = await Offer.find(filter)
           .sort({ product_price: "desc" })
           .skip(0)
-          .limit(3)
+          .limit(8)
           .populate("owner", "account _id");
       }
     } else {
       if (!req.query.sort) {
         result = await Offer.find(filter)
-          .skip(3 * (Number(req.query.page) - 1))
-          .limit(3)
+          .skip(8 * (Number(req.query.page) - 1))
+          .limit(8)
           .populate("owner", "account _id");
       } else if (req.query.sort === "price-asc") {
         result = await Offer.find(filter)
           .sort({ product_price: "asc" })
-          .skip(3 * (Number(req.query.page) - 1))
-          .limit(3)
+          .skip(8 * (Number(req.query.page) - 1))
+          .limit(8)
           .populate("owner", "account _id");
       } else if (req.query.sort === "price desc") {
         result = await Offer.find(filter)
           .sort({ product_price: "desc" })
-          .skip(3 * (Number(req.query.page) - 1))
-          .limit(3)
+          .skip(8 * (Number(req.query.page) - 1))
+          .limit(8)
           .populate("owner", "account _id");
       }
     }
