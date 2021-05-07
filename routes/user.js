@@ -49,7 +49,7 @@ router.post("/user/signup", async (req, res) => {
         });
       }
     } else {
-      res.status(400).json({
+      res.status(409).json({
         error: { message: "An account with this email already exists." },
       });
     }
@@ -72,10 +72,10 @@ router.post("/user/login", async (req, res) => {
           account: thisUser.account,
         });
       } else {
-        res.status(400).json({ error: { message: "Unauthorized." } });
+        res.status(401).json({ error: { message: "Unauthorized." } });
       }
     } else {
-      res.status(400).json({ error: { message: "Unauthorized." } });
+      res.status(400).json({ error: { message: "User not found" } });
     }
   } catch (error) {
     res.status(400).json({ error: error.message });
