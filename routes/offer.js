@@ -277,8 +277,10 @@ router.delete("/offer/delete", isAuthenticated, async (req, res) => {
 router.get("/offers", async (req, res) => {
   try {
     let limit = Number(req.query.limit);
-    let result = [];
+
     let filter = {};
+    let sort = {};
+    let page;
     if (req.query.title) {
       filter.product_name = new RegExp(req.query.title, "i");
     }
@@ -296,45 +298,25 @@ router.get("/offers", async (req, res) => {
         $lte: Number(req.query.priceMax),
       };
     }
-    if (!req.query.page) {
-      if (!req.query.sort) {
-        result = await Offer.find(filter)
-          .skip(0)
-          .limit(8)
-          .populate("owner", "account _id");
-      } else if (req.query.sort === "price-asc") {
-        result = await Offer.find(filter)
-          .sort({ product_price: "asc" })
-          .skip(0)
-          .limit(8)
-          .populate("owner", "account _id");
-      } else if (req.query.sort === "price-desc") {
-        result = await Offer.find(filter)
-          .sort({ product_price: "desc" })
-          .skip(0)
-          .limit(8)
-          .populate("owner", "account _id");
-      }
-    } else {
-      if (!req.query.sort) {
-        result = await Offer.find(filter)
-          .skip(8 * (Number(req.query.page) - 1))
-          .limit(limit)
-          .populate("owner", "account _id");
-      } else if (req.query.sort === "price-asc") {
-        result = await Offer.find(filter)
-          .sort({ product_price: "asc" })
-          .skip(8 * (Number(req.query.page) - 1))
-          .limit(limit)
-          .populate("owner", "account _id");
-      } else if (req.query.sort === "price desc") {
-        result = await Offer.find(filter)
-          .sort({ product_price: "desc" })
-          .skip(8 * (Number(req.query.page) - 1))
-          .limit(limit)
-          .populate("owner", "account _id");
-      }
+
+    if (req.query.sort === "price-desc") {
+      sort = { product_price: -1 };
+    } else if (req.query.sort === "price-asc") {
+      sort = { product_price: 1 };
     }
+
+    if (Number(req.query.page) < 1) {
+      page = 1;
+    } else {
+      page = Number(req.query.page);
+    }
+
+    const result = await Offer.find(filter)
+      .populate("owner", "account _id")
+      .sort(sort)
+      .skip((page - 1) * limit)
+      .limit(limit);
+
     const count = await Offer.countDocuments(filter);
 
     res.status(200).json({ count: count, offers: result });
