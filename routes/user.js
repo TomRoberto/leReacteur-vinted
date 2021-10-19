@@ -37,7 +37,7 @@ router.post("/user/signup", async (req, res) => {
 
         await newUser.save();
         res.status(200).json({
-          _id: newUser.id,
+          _id: newUser._id,
           token: newUser.token,
           account: newUser.account,
         });
