@@ -8,16 +8,8 @@ const isAuthenticated = require("../middlewares/isAuthenticated");
 
 router.post("/offer/publish", isAuthenticated, async (req, res) => {
   try {
-    const {
-      title,
-      description,
-      price,
-      condition,
-      city,
-      brand,
-      size,
-      color,
-    } = req.fields;
+    const { title, description, price, condition, city, brand, size, color } =
+      req.fields;
     if (
       description.length <= 500 &&
       title.length <= 50 &&
