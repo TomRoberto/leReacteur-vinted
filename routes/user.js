@@ -8,6 +8,7 @@ const cloudinary = require("cloudinary").v2;
 const User = require("../models/User");
 
 router.post("/user/signup", async (req, res) => {
+  console.log("salut à tous");
   try {
     const verif = await User.findOne({ email: req.fields.email });
     if (!verif) {

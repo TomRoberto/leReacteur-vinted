@@ -302,7 +302,7 @@ router.get("/offers", async (req, res) => {
     } else {
       page = Number(req.query.page);
     }
-
+    console.log((page - 1) * limit);
     const result = await Offer.find(filter)
       .populate("owner", "account _id")
       .sort(sort)
