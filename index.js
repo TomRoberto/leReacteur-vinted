@@ -42,5 +42,5 @@ app.all("*", (req, res) => {
 });
 
 app.listen(process.env.PORT, () => {
-  console.log("Server Strated, qoddi, tttttttest");
+  console.log("Server Strated, qoddi, tttttttest, auto deploy");
 });
