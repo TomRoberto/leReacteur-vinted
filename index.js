@@ -33,7 +33,7 @@ app.use(paymentRoutes);
 app.get("/", (req, res) => {
   res.status(200).json({
     message:
-      "Bienvenue sur le serveur Heroku basé sur un code source sur GitHub.",
+      "Bienvenue sur le serveur NorthFlanck basé sur un code source sur GitHub.",
   });
 });
 
@@ -42,5 +42,7 @@ app.all("*", (req, res) => {
 });
 
 app.listen(process.env.PORT, () => {
-  console.log("Server Strated, qoddi, tttttttest, auto deploy");
+  console.log(
+    "Server Strated, qoddi, tttttttest, auto deploy, northflank test"
+  );
 });
