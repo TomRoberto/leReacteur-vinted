@@ -8,6 +8,7 @@ const isAuthenticated = require("../middlewares/isAuthenticated");
 
 router.post("/offer/publish", isAuthenticated, async (req, res) => {
   try {
+    console.log("Coucou, je suis dans la route offer les petits fréros");
     const { title, description, price, condition, city, brand, size, color } =
       req.fields;
     if (
