@@ -7,7 +7,7 @@ require("dotenv").config();
 
 const app = express();
 app.use(formidable());
-app.use(cors());
+// app.use(cors());
 
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
